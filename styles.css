@@ -1,0 +1,297 @@
+/* Global settings */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: 'Roboto', sans-serif;
+    background: url('img1.jpg') no-repeat center center fixed;
+    background-size: cover;
+    color: #d1d1d1;
+    line-height: 1.6;
+    overflow-x: hidden;
+    animation: fadeIn 2s ease-in-out;
+}
+
+/* Fade-In Animation */
+@keyframes fadeIn {
+    0% { opacity: 0; }
+    100% { opacity: 1; }
+}
+
+/* Header */
+header {
+    background-color: rgba(13, 13, 14, 0.95);
+    color: #0ee950;
+    padding: 20px 0;
+    text-align: center;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+    animation: slideDown 1.5s ease-in-out, pulse 2s infinite alternate;
+}
+
+/* Slide-Down Animation */
+@keyframes slideDown {
+    0% { transform: translateY(-100%); }
+    100% { transform: translateY(0); }
+}
+
+/* Pulsing Effect */
+@keyframes pulse {
+    0% { transform: scale(1); opacity: 1; }
+    100% { transform: scale(1.05); opacity: 0.85; }
+}
+
+header h1 {
+    font-size: 2.8em;
+    margin-bottom: 5px;
+    font-weight: bold;
+    letter-spacing: 2px;
+    text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
+    animation: fadeIn 1s ease-in-out;
+}
+
+header p {
+    font-size: 1.1em;
+    opacity: 0.85;
+}
+
+/* Navigation */
+.navbar ul {
+    list-style-type: none;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    margin-top: 15px;
+}
+
+.navbar ul li {
+    margin: 0 15px;
+}
+
+.navbar ul li a {
+    color: #d1d1d1;
+    text-decoration: none;
+    font-size: 1em;
+    font-weight: bold;
+    padding: 8px 15px;
+    border-radius: 5px;
+    transition: all 0.3s ease, transform 0.3s ease, letter-spacing 0.2s ease;
+}
+
+.navbar ul li a:hover {
+    background-color: #0ee950;
+    color: #030303;
+    transform: scale(1.1);
+    letter-spacing: 3px;
+}
+
+/* Main Section */
+main {
+    padding: 40px 15px;
+    min-height: 80vh;
+    background: rgba(0, 0, 0, 0.85);
+    border-radius: 12px;
+    margin: 20px auto;
+    max-width: 1200px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+    animation: fadeInUp 1.5s ease-in-out, glow 3s infinite alternate;
+}
+
+/* Fade-In-Up Animation */
+@keyframes fadeInUp {
+    0% { opacity: 0; transform: translateY(50px); }
+    100% { opacity: 1; transform: translateY(0); }
+}
+
+/* Glowing Effect */
+@keyframes glow {
+    0% { box-shadow: 0 0 10px rgba(0, 255, 0, 0.3); }
+    100% { box-shadow: 0 0 20px rgba(0, 255, 0, 0.8); }
+}
+
+/* Titles and Headings */
+h2 {
+    font-size: 2.2em;
+    margin-bottom: 20px;
+    font-weight: bold;
+    color: #0ee950;
+    text-align: center;
+    animation: fadeIn 1.2s ease-in-out;
+}
+
+/* Section Styling */
+section {
+    margin-bottom: 25px;
+    background-color: #121212;
+    border-radius: 10px;
+    padding: 30px;
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+section:hover {
+    transform: scale(1.03);
+    box-shadow: 0 8px 25px rgba(0, 255, 0, 0.3);
+}
+
+/* Forms */
+form .form-group {
+    margin-bottom: 20px;
+}
+
+form .form-group label {
+    font-size: 1em;
+    color: #d1d1d1;
+    margin-bottom: 10px;
+    display: block;
+}
+
+form input, form select, form textarea {
+    width: 100%;
+    padding: 12px;
+    font-size: 1em;
+    border-radius: 8px;
+    border: 1px solid #0ee950;
+    background-color: #1a1a1a;
+    color: #d1d1d1;
+    transition: all 0.3s ease, transform 0.3s ease;
+}
+
+form input:focus, form select:focus, form textarea:focus {
+    border-color: #64f304;
+    outline: none;
+    box-shadow: 0 0 10px rgba(0, 255, 0, 0.5);
+    transform: scale(1.02);
+}
+
+form button {
+    background-color: #0ee950;
+    color: #030303;
+    border: none;
+    padding: 12px 20px;
+    cursor: pointer;
+    font-size: 1.1em;
+    width: 100%;
+    border-radius: 8px;
+    transition: all 0.3s ease, transform 0.3s ease;
+}
+
+form button:hover {
+    background-color: #636262;
+    color: #ffffff;
+    transform: scale(1.05);
+}
+
+/* Footer */
+footer {
+    background-color: #111111;
+    color: #0ee950;
+    text-align: center;
+    padding: 15px;
+    margin-top: 40px;
+    font-size: 1em;
+    letter-spacing: 1px;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+footer:hover {
+    background-color: #0ee950;
+    color: #030303;
+    transform: translateY(-5px);
+}
+
+footer p {
+    margin: 0;
+}
+
+/* Service List */
+#service-list ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
+
+#service-list ul li {
+    background-color: #1a1a1a;
+    border: 1px solid #0ee950;
+    border-radius: 8px;
+    margin: 10px 0;
+    padding: 15px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    transition: transform 0.2s ease, background-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+#service-list ul li:hover {
+    transform: scale(1.02);
+    background-color: #0ee950;
+    color: #121212;
+    box-shadow: 0 6px 15px rgba(0, 255, 0, 0.3);
+}
+
+/* Action Buttons */
+#service-list ul li .action-buttons button {
+    background-color: #0ee950;
+    color: #121212;
+    border: none;
+    padding: 8px 12px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: all 0.3s ease, transform 0.3s ease;
+}
+
+#service-list ul li .action-buttons button:hover {
+    background-color: #636262;
+    color: #ffffff;
+    transform: scale(1.1);
+}
+
+/* Performance Metrics */
+.metric {
+    text-align: center;
+    width: 30%;
+    background-color: #121212;
+    border: 1px solid #0ee950;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+    transition: transform 0.2s ease, background-color 0.3s ease;
+}
+
+.metric:hover {
+    transform: scale(1.05);
+    background-color: #0ee950;
+    color: #121212;
+}
+
+/* Calendar Styling */
+#calendar {
+    margin: 30px auto;
+    padding: 20px;
+    background-color: #121212;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    max-width: 800px;
+    color: #f4f4f4;
+    animation: fadeInUp 1.5s ease-in-out;
+}
+
+#calendar .day {
+    font-size: 1.2em;
+    font-weight: bold;
+    padding: 10px;
+    margin: 5px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: all 0.3s ease, transform 0.3s ease;
+}
+
+#calendar .day:hover {
+    background-color: #0ee950;
+    color: #030303;
+    transform: scale(1.1);
+}

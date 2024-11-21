@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Painel de Controle - Gerenciador de Freelancers</title>
+  <link rel="stylesheet" href="styles.css">
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+  <style>
+    #calendar {
+      max-width: 100%;
+      margin: 20px auto;
+      padding: 15px;
+      border-radius: 8px;
+      background-color: #1d1c1c;
+    }
+
+    #calendar-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 15px;
+    }
+
+    .month-nav {
+      font-size: 1.5em;
+      background: transparent;
+      border: none;
+      cursor: pointer;
+      transition: color 0.3s;
+    }
+
+    .month-nav:hover {
+      color: #10f008;
+    }
+
+    #current-month {
+      font-size: 1.5em;
+      font-weight: bold;
+    }
+
+    #calendar-grid {
+      display: grid;
+      grid-template-columns: repeat(7, 1fr);
+      gap: 5px;
+      text-align: center;
+    }
+
+    .calendar-day {
+      padding: 10px;
+      background-color: #000000;
+      border: 1px solid #04f510;
+      border-radius: 5px;
+      font-weight: bold;
+    }
+
+    .header {
+      background-color: #10f308;
+    }
+
+    .calendar-day.special {
+      background-color: #000000;
+    }
+
+    .calendar-day.event {
+      background-color: #0ad8f3;
+      color: rgb(7, 161, 223);
+      font-size: 1.1em;
+    }
+
+    #next-service-countdown {
+      font-size: 1.2em;
+      color: #007bff;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="header-container">
+      <h1>Dashboard</h1>
+      <p>Gabriel Morales Dev</p>
+    </div>
+    <nav class="navbar">
+      <div class="hamburger" onclick="toggleMenu()">
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
+      <ul id="nav-links" class="hidden">
+        <li><a href="#add-service">Adicionar</a></li>
+        <li><a href="#service-list">Lista de Serviços</a></li>
+        <li><a href="#calendar">Calendário</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main>
+    <div id="current-info"></div>
+
+    <!-- Adicionar Serviço -->
+    <section id="add-service">
+      <h2>Adicionar Novo Serviço</h2>
+      <form id="service-form">
+        <div class="form-group">
+          <label for="client-name">Nome do Cliente:</label>
+          <input type="text" id="client-name" placeholder="Nome do Cliente" required>
+        </div>
+        <div class="form-group">
+          <label for="service-description">Descrição do Serviço:</label>
+          <textarea id="service-description" placeholder="Descreva o serviço..." required></textarea>
+        </div>
+        <div class="form-group">
+          <label for="language">Linguagem de Programação:</label>
+          <input type="text" id="language" placeholder="Ex.: Python, JavaScript">
+        </div>
+        <div class="form-group">
+          <label for="tool">Ferramenta de Programação:</label>
+          <input type="text" id="tool" placeholder="Ex.: React, Flask">
+        </div>
+        <div class="form-group">
+          <label for="server-site">Site do Servidor:</label>
+          <input type="text" id="server-site" placeholder="Ex.: www.meuservidor.com">
+        </div>
+        <div class="form-group">
+          <label for="due-date">Data de Entrega:</label>
+          <input type="date" id="due-date" required>
+        </div>
+        <div class="form-group">
+          <label for="priority">Prioridade:</label>
+          <select id="priority">
+            <option value="alta">Alta</option>
+            <option value="media">Média</option>
+            <option value="baixa">Baixa</option>
+          </select>
+        </div>
+        <button type="submit">Adicionar Serviço</button>
+      </form>
+    </section>
+
+    <!-- Lista de Serviços -->
+    <section id="service-list">
+      <h2>Lista de Serviços</h2>
+      <ul id="pending-services"></ul>
+    </section>
+
+    <!-- Calendário -->
+    <section id="calendar">
+      <h2>Calendário de Serviços</h2>
+      <div id="calendar-header">
+        <button id="prev-month" class="month-nav">❮</button>
+        <h3 id="current-month"></h3>
+        <button id="next-month" class="month-nav">❯</button>
+      </div>
+      <div id="calendar-grid">
+        <div class="calendar-day header">Dom</div>
+        <div class="calendar-day header">Seg</div>
+        <div class="calendar-day header">Ter</div>
+        <div class="calendar-day header">Qua</div>
+        <div class="calendar-day header">Qui</div>
+        <div class="calendar-day header">Sex</div>
+        <div class="calendar-day header">Sáb</div>
+        <!-- Os dias serão renderizados dinamicamente via JavaScript -->
+      </div>
+      <p id="next-service-countdown"></p>
+    </section>
+  </main>
+
+  <footer>
+    <p>&copy; 2024 Painel de Controle - Gerenciador de Freelancers. Todos os direitos reservados.</p>
+  </footer>
+
+  <script>
+    const pendingServices = JSON.parse(localStorage.getItem("pendingServices")) || [];
+
+    function loadServices() {
+      const serviceList = document.getElementById("pending-services");
+      serviceList.innerHTML = "";
+      pendingServices.forEach((service, index) => {
+        const li = document.createElement("li");
+        li.innerHTML = `
+          <strong>${service.clientName}</strong><br>
+          ${service.description}<br>
+          <em>Linguagem:</em> ${service.language || "N/A"}<br>
+          <em>Ferramenta:</em> ${service.tool || "N/A"}<br>
+          <em>Servidor:</em> ${service.serverSite || "N/A"}<br>
+          <em>Data:</em> ${service.dueDate} - <em>Prioridade:</em> ${service.priority}<br>
+          <button onclick="deleteService(${index})">Excluir</button>`;
+        serviceList.appendChild(li);
+      });
+      updateCalendar();
+    }
+
+    function saveService(event) {
+      event.preventDefault();
+      const newService = {
+        clientName: document.getElementById("client-name").value,
+        description: document.getElementById("service-description").value,
+        language: document.getElementById("language").value,
+        tool: document.getElementById("tool").value,
+        serverSite: document.getElementById("server-site").value,
+        dueDate: document.getElementById("due-date").value,
+        priority: document.getElementById("priority").value,
+      };
+      pendingServices.push(newService);
+      localStorage.setItem("pendingServices", JSON.stringify(pendingServices));
+      document.getElementById("service-form").reset();
+      loadServices();
+    }
+
+    function deleteService(index) {
+      pendingServices.splice(index, 1);
+      localStorage.setItem("pendingServices", JSON.stringify(pendingServices));
+      loadServices();
+    }
+
+    let currentMonth = new Date().getMonth();
+    let currentYear = new Date().getFullYear();
+
+    function updateCalendar() {
+      const calendarGrid = document.getElementById("calendar-grid");
+      const currentMonthDisplay = document.getElementById("current-month");
+      const firstDayOfMonth = new Date(currentYear, currentMonth, 1).getDay();
+      const lastDateOfMonth = new Date(currentYear, currentMonth + 1, 0).getDate();
+
+      currentMonthDisplay.textContent = `${new Date(currentYear, currentMonth).toLocaleString("default", { month: "long" })} ${currentYear}`;
+
+      calendarGrid.innerHTML = `
+        <div class="calendar-day header">Dom</div>
+        <div class="calendar-day header">Seg</div>
+        <div class="calendar-day header">Ter</div>
+        <div class="calendar-day header">Qua</div>
+        <div class="calendar-day header">Qui</div>
+        <div class="calendar-day header">Sex</div>
+        <div class="calendar-day header">Sáb</div>`;
+
+      for (let i = 1; i <= lastDateOfMonth; i++) {
+        const day = new Date(currentYear, currentMonth, i);
+        const dayDiv = document.createElement("div");
+        dayDiv.classList.add("calendar-day");
+        dayDiv.textContent = i;
+
+        // Verifica se o dia tem um evento de serviço
+        const service = pendingServices.find((s) => new Date(s.dueDate).toDateString() === day.toDateString());
+        if (service) {
+          dayDiv.classList.add("event");
+        }
+        calendarGrid.appendChild(dayDiv);
+      }
+    }
+
+    document.getElementById("service-form").addEventListener("submit", saveService);
+    document.getElementById("prev-month").addEventListener("click", () => {
+      currentMonth--;
+      if (currentMonth < 0) {
+        currentMonth = 11;
+        currentYear--;
+      }
+      updateCalendar();
+    });
+
+    document.getElementById("next-month").addEventListener("click", () => {
+      currentMonth++;
+      if (currentMonth > 11) {
+        currentMonth = 0;
+        currentYear++;
+      }
+      updateCalendar();
+    });
+
+    loadServices();
+  </script>
+</body>
+</html>
