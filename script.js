@@ -202,3 +202,30 @@ document.addEventListener("DOMContentLoaded", () => {
 
     renderCalendar();
 });
+// Selecionar todos os botões de emissão de nota
+const issueButtons = document.querySelectorAll('.issue-invoice-btn');
+const hideButtons = document.querySelectorAll('.hide-invoice-btn');
+
+// Função para gerar a nota fiscal
+issueButtons.forEach(button => {
+    button.addEventListener('click', function () {
+        // Exibir a nota fiscal
+        const invoiceDetails = this.nextElementSibling;
+        invoiceDetails.style.display = 'block';
+
+        // Adicionar a data de emissão
+        const invoiceDate = invoiceDetails.querySelector('#invoice-date');
+        const currentDate = new Date();
+        const formattedDate = currentDate.toLocaleDateString('pt-BR');
+        invoiceDate.textContent = formattedDate;
+    });
+});
+
+// Função para esconder a nota fiscal
+hideButtons.forEach(button => {
+    button.addEventListener('click', function () {
+        // Esconder a nota fiscal
+        const invoiceDetails = this.closest('.service-details');
+        invoiceDetails.style.display = 'none';
+    });
+});
