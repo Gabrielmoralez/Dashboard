@@ -89,7 +89,7 @@
       </div>
       <ul id="nav-links" class="hidden">
         <li><a href="#add-service">Adicionar</a></li>
-        <li><a href="#service-list">Lista de Serviços</a></li>
+        <li><a href="#service-list">Serviços</a></li>
         <li><a href="#calendar">Calendário</a></li>
       </ul>
     </nav>
@@ -101,7 +101,7 @@
     <!-- Adicionar Serviço -->
     <section id="add-service">
       <h2>Adicionar Novo Serviço</h2>
-      <form id="service-form">
+      <form id="service-form" enctype="multipart/form-data">
         <div class="form-group">
           <label for="client-name">Nome do Cliente:</label>
           <input type="text" id="client-name" placeholder="Nome do Cliente" required>
@@ -134,15 +134,56 @@
             <option value="baixa">Baixa</option>
           </select>
         </div>
+        <div class="form-group">
+          <label for="file-upload">Anexar Documento:</label>
+          <input type="file" id="file-upload">
+        </div>
         <button type="submit">Adicionar Serviço</button>
       </form>
     </section>
 
     <!-- Lista de Serviços -->
-    <section id="service-list">
-      <h2>Lista de Serviços</h2>
-      <ul id="pending-services"></ul>
-    </section>
+<section id="service-list">
+  <h2>Lista de Serviços</h2>
+  <ul id="pending-services">
+    <li>
+      <span class="service-icon"><i class="fas fa-cogs"></i></span> <!-- Ícone do serviço -->
+      <span class="service-title">Serviço 1</span>
+      <p>Descrição do serviço.</p>
+      <div class="action-buttons">
+        <button class="issue-invoice-btn">Emitir Nota</button>
+        <button class="hide-invoice-btn">Fechar</button>
+      </div>
+      <div class="service-details">
+        <p><strong>Nota Fiscal:</strong></p>
+        <p>Serviço: Serviço 1</p>
+        <p>Valor: R$ 100,00</p>
+        <p>Data: <span id="invoice-date"></span></p>
+        <button class="hide-invoice-btn">Fechar</button>
+      </div>
+      <span class="status-indicator">Em andamento</span> <!-- Status do serviço -->
+    </li>
+    <li>
+      <span class="service-icon"><i class="fas fa-wrench"></i></span> <!-- Ícone do serviço -->
+      <span class="service-title">Serviço 2</span>
+      <p>Descrição do serviço.</p>
+      <div class="action-buttons">
+        <button class="issue-invoice-btn">Emitir Nota</button>
+        <button class="hide-invoice-btn">Fechar</button>
+      </div>
+      <div class="service-details">
+        <p><strong>Nota Fiscal:</strong></p>
+        <p>Serviço: Serviço 2</p>
+        <p>Valor: R$ 200,00</p>
+        <p>Data: <span id="invoice-date"></span></p>
+        <button class="hide-invoice-btn">Fechar</button>
+      </div>
+      <span class="status-indicator">Concluído</span> <!-- Status do serviço -->
+    </li>
+  </ul>
+</section>
+
+
 
     <!-- Calendário -->
     <section id="calendar">
@@ -185,6 +226,7 @@
           <em>Ferramenta:</em> ${service.tool || "N/A"}<br>
           <em>Servidor:</em> ${service.serverSite || "N/A"}<br>
           <em>Data:</em> ${service.dueDate} - <em>Prioridade:</em> ${service.priority}<br>
+          ${service.file ? `<em>Arquivo:</em> <a href="${service.file}" target="_blank">Visualizar Documento</a>` : ""}
           <button onclick="deleteService(${index})">Excluir</button>`;
         serviceList.appendChild(li);
       });
@@ -193,6 +235,7 @@
 
     function saveService(event) {
       event.preventDefault();
+      const fileInput = document.getElementById("file-upload");
       const newService = {
         clientName: document.getElementById("client-name").value,
         description: document.getElementById("service-description").value,
@@ -202,6 +245,13 @@
         dueDate: document.getElementById("due-date").value,
         priority: document.getElementById("priority").value,
       };
+
+      if (fileInput.files.length > 0) {
+        const file = fileInput.files[0];
+        const fileUrl = URL.createObjectURL(file);
+        newService.file = fileUrl;
+      }
+
       pendingServices.push(newService);
       localStorage.setItem("pendingServices", JSON.stringify(pendingServices));
       document.getElementById("service-form").reset();
