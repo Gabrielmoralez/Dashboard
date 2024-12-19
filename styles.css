@@ -7,9 +7,9 @@
 
 body {
     font-family: 'Roboto', sans-serif;
-    background: url('img1.jpg') no-repeat center center fixed;
+    background: url('4.jpg') no-repeat center center fixed;
     background-size: cover;
-    color: #d1d1d1;
+    color: #faf6f6;
     line-height: 1.6;
     overflow-x: hidden;
     animation: fadeIn 2s ease-in-out;
@@ -48,7 +48,7 @@ header h1 {
     margin-bottom: 5px;
     font-weight: bold;
     letter-spacing: 2px;
-    text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
+    text-shadow: 2px 2px 5px rgba(248, 248, 248, 0.3);
     animation: fadeIn 1s ease-in-out;
 }
 
@@ -71,7 +71,7 @@ header p {
 }
 
 .navbar ul li a {
-    color: #d1d1d1;
+    color: #ffffff;
     text-decoration: none;
     font-size: 1em;
     font-weight: bold;
@@ -211,87 +211,123 @@ footer p {
     list-style-type: none;
     padding: 0;
     margin: 0;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); /* Layout responsivo */
+    gap: 20px; /* Espaçamento entre os itens */
+    padding-bottom: 20px; /* Espaço inferior extra */
 }
 
-#service-list ul li {
-    background-color: #1a1a1a;
-    border: 1px solid #0ee950;
-    border-radius: 8px;
-    margin: 10px 0;
+/* Style for each list item */
+#service-list li {
+    background: linear-gradient(145deg, #4e4e4e, #333333); /* Gradiente de fundo para destaque */
+    color: #fff; /* Cor do texto */
+    margin-bottom: 15px; /* Espaçamento entre os itens */
+    padding: 20px; /* Aumentando o espaço interno para melhorar a leitura */
+    border-radius: 12px; /* Bordas mais arredondadas */
+    font-size: 1.2em; /* Aumentar o tamanho da fonte */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Sombra mais suave e ampla */
+    transition: transform 0.3s ease, box-shadow 0.3s ease; /* Transição suave para interações */
+    position: relative; /* Permitir posicionamento de elementos internos */
+}
+
+/* Hover effect for list items */
+#service-list li:hover {
+    transform: translateY(-5px); /* Efeito de elevação ao passar o mouse */
+    box-shadow: 0 6px 12px rgba(247, 247, 247, 0.3); /* Sombra mais intensa ao passar o mouse */
+}
+
+/* Icon for each service */
+#service-list li .service-icon {
+    font-size: 2em;
+    position: absolute;
+    top: 15px;
+    right: 20px;
+    color: #fff;
+}
+
+/* Style for the service details section */
+#service-list .service-details {
+    display: none; /* Inicialmente oculto */
+    margin-top: 15px; /* Espaço acima dos detalhes */
     padding: 15px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    transition: transform 0.2s ease, background-color 0.3s ease, box-shadow 0.3s ease;
+    background-color: #f8f8f8; /* Cor de fundo suave */
+    border-radius: 8px;
+    font-size: 1em;
+    color: #f7f3f3; /* Cor do texto dos detalhes */
+    box-shadow: 0 2px 4px rgba(240, 3, 3, 0.1); /* Sombra suave para os detalhes */
 }
 
-#service-list ul li:hover {
-    transform: scale(1.02);
-    background-color: #0ee950;
-    color: #121212;
-    box-shadow: 0 6px 15px rgba(0, 255, 0, 0.3);
-}
-
-/* Action Buttons */
-#service-list ul li .action-buttons button {
-    background-color: #0ee950;
-    color: #121212;
-    border: none;
-    padding: 8px 12px;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: all 0.3s ease, transform 0.3s ease;
-}
-
-#service-list ul li .action-buttons button:hover {
-    background-color: #636262;
-    color: #ffffff;
-    transform: scale(1.1);
-}
-
-/* Performance Metrics */
-.metric {
+/* Button to issue invoice */
+#service-list .issue-invoice-btn {
+    background-color: #28a745; /* Cor verde para o botão */
+    color: white;
+    padding: 10px 20px;
+    border-radius: 8px;
     text-align: center;
-    width: 30%;
-    background-color: #121212;
-    border: 1px solid #0ee950;
-    padding: 20px;
-    border-radius: 10px;
-    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
-    transition: transform 0.2s ease, background-color 0.3s ease;
-}
-
-.metric:hover {
-    transform: scale(1.05);
-    background-color: #0ee950;
-    color: #121212;
-}
-
-/* Calendar Styling */
-#calendar {
-    margin: 30px auto;
-    padding: 20px;
-    background-color: #121212;
-    border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-    max-width: 800px;
-    color: #f4f4f4;
-    animation: fadeInUp 1.5s ease-in-out;
-}
-
-#calendar .day {
-    font-size: 1.2em;
-    font-weight: bold;
-    padding: 10px;
-    margin: 5px;
-    border-radius: 5px;
     cursor: pointer;
-    transition: all 0.3s ease, transform 0.3s ease;
+    margin-top: 15px;
+    font-size: 1.1em;
+    transition: background-color 0.3s ease;
 }
 
-#calendar .day:hover {
-    background-color: #0ee950;
-    color: #030303;
-    transform: scale(1.1);
+/* Hover effect for the button */
+#service-list .issue-invoice-btn:hover {
+    background-color: #218838; /* Cor mais escura para o botão ao passar o mouse */
+}
+
+@media (max-width: 768px) {
+    header h1 {
+        font-size: 2.2em; /* Reduzir tamanho do título em telas menores */
+    }
+
+    .navbar ul {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .navbar ul li {
+        margin-bottom: 10px;
+    }
+
+    main {
+        padding: 20px;
+    }
+
+    section {
+        padding: 15px;
+    }
+
+    form input, form select, form textarea {
+        padding: 10px;
+    }
+
+    footer {
+        font-size: 0.9em;
+    }
+}
+
+@media (max-width: 480px) {
+    header h1 {
+        font-size: 1.8em; /* Reduzir ainda mais o título */
+    }
+
+    .navbar ul {
+        padding: 10px;
+    }
+
+    .navbar ul li {
+        margin-bottom: 5px;
+    }
+
+    main {
+        padding: 15px;
+    }
+
+    section {
+        padding: 10px;
+    }
+
+    form input, form select, form textarea {
+        font-size: 0.9em;
+    }
 }
